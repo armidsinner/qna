@@ -1,0 +1,14 @@
+<%= form_with model: [@question, @answer], local: true do |form| %>
+  <%= render 'shared/errors', resource: @answer %>
+  
+  <% if current_user.present? %>
+    <%= form.hidden_field :user_id, value: current_user.id  %>
+  <% end %>
+
+  <p>
+    <%= form.label :body, 'Your answer' %><br>
+    <%= form.text_area :body, value: @answer.body %>
+  </p>
+
+  <p><%= form.submit 'Send answer' %></p>
+<% end %>

@@ -1,0 +1,34 @@
+<p>
+  <strong>Question</strong>
+  <%= @question.title %>
+</p>
+
+<p>
+  <strong>Description</strong>
+  <%= @question.body %>
+</p>
+
+<p>
+  <strong>Author</strong>
+  <%= @question.user.email %>
+</p>
+
+<h3>Answers</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @question.answers %>
+  </tbody>
+<table>
+
+<%= render '/answers/form' %>
+
+<%= link_to 'Delete question', question_path(@question),
+                       method: :delete,
+                       data: {confirm: 'Вы уверены?'} %><br>
+
+<%= link_to 'Return to all questions', questions_path %>
