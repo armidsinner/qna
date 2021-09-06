@@ -29,11 +29,7 @@ feature 'user can delete question' do
     scenario 'tries to delete question when he is not an author' do
       visit question_path(other_question)
 
-      expect(page).to have_content other_question.title
-
-      click_on 'Delete question'
-
-      expect(page).to have_content('You are not author to delete this question')
+      expect(page).not_to have_content 'Delete question'
     end
   end
 
@@ -41,9 +37,7 @@ feature 'user can delete question' do
     scenario 'tries to delete question' do
       visit question_path(question)
 
-      click_on 'Delete question'
-
-      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+      expect(page).not_to have_content 'Delete question'
     end
   end
 end

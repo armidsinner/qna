@@ -13,9 +13,12 @@ RSpec.describe User, type: :model do
     let(:resource) { double user_id: user_id }
     let(:user_id) { user.id }
 
-    it { expect(user).to be_check_author(resource) }
+    context 'when the user is author' do
 
-    context 'when the user is not the author' do
+    it { expect(user).to be_check_author(resource) }
+    end
+    
+    context 'when the user is not author' do
       let(:user2) { create(:user) }
       let(:user_id) { user2.id }
 

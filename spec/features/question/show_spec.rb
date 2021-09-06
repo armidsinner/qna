@@ -10,9 +10,7 @@ feature 'User can see the question and its answers', "
       visit question_path(question)
 
       expect(page).to have_content question.title
-      answers.each do |answer|
-        expect(page).to have_content answer.body
-      end
+      expect(page).to have_content('MyText', count: 4)
     end
   end
 

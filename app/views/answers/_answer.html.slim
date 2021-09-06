@@ -1,5 +1,6 @@
-p = answer.body
-- if answer.body.present?
-  p = link_to 'Delete', answer_path(answer),
-                               method: :delete,
-                               data: {confirm: 'Вы уверены?'}
+- if answer.id.present?
+  p = answer.body
+  - if current_user.present? && current_user.check_author?(answer)
+      p = link_to 'Delete', answer_path(answer),
+                          method: :delete,
+                          data: {confirm: 'Вы уверены?'}                         

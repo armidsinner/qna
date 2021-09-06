@@ -15,7 +15,7 @@ I'a like to delete the answer of the question
 
   given(:user) { create(:user) }
   given!(:question) { create(:question, user: user) }
-  given!(:other_question) { create(:question, user: user) }
+  given!(:other_question) { create(:question) }
   given!(:answer) { create(:answer, question: question, user: user) }
   given!(:other_answer) { create(:answer, question: other_question) }
 
@@ -35,11 +35,7 @@ I'a like to delete the answer of the question
     scenario 'tries to delete question when he is not an author' do
       visit question_path(other_question)
 
-      expect(page).to have_content other_answer.body
-
-      click_on 'Delete'
-
-      expect(page).to have_content('You are not author to delete this answer')
+      expect(page).not_to have_content 'Delete'
     end
   end
 
@@ -47,9 +43,7 @@ I'a like to delete the answer of the question
     scenario 'tries to delete answer' do
       visit question_path(question)
 
-      click_on 'Delete'
-
-      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+      expect(page).not_to have_content 'Delete'
     end
   end
 end
