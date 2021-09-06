@@ -3,22 +3,19 @@ class AnswersController < ApplicationController
   before_action :load_question, only: %i[create]
   before_action :load_answer, only: :destroy
 
-  def new; end
-
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params,)
+    @answer.user = current_user
     if @answer.save
       redirect_to @question
       flash[:notice] = 'Good job!'
     else
-      redirect_to @question
-      flash[:notice] = 'Oooops something went wrong((('
+      render 'questions/show'
     end
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
-    if check_author(@answer)
+    if current_user.check_author?(@answer)
       @answer.destroy
       redirect_to @answer.question
       flash[:notice] = 'Your answer has been deleted'
@@ -39,10 +36,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :user_id)
-  end
-
-  def check_author(resourse)
-    resourse.user_id == current_user.id
+    params.require(:answer).permit(:body)
   end
 end

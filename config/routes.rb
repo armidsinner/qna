@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'questions#index'
+
+  post '/questions/:question_id', to: 'answers#create'
 end

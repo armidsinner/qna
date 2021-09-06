@@ -26,6 +26,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.new(question_params)
+    @question.user = current_user
     if @question.save
       redirect_to @question, notice: 'Your question successfully created.'
     else
@@ -34,7 +35,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if check_author(@question)
+    if current_user.check_author?(@question)
       @question.destroy
       redirect_to questions_path
       flash[:notice] = 'Your question has been deleted'
@@ -46,12 +47,8 @@ class QuestionsController < ApplicationController
 
   private
 
-  def check_author(resourse)
-    resourse.user_id == current_user.id
-  end
-
   def question_params
-    params.require(:question).permit(:title, :body, :user_id)
+    params.require(:question).permit(:title, :body)
   end
 
   def load_question

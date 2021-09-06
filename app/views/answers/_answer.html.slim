@@ -1,0 +1,5 @@
+p = answer.body
+- if answer.body.present?
+  p = link_to 'Delete', answer_path(answer),
+                               method: :delete,
+                               data: {confirm: 'Вы уверены?'}

@@ -16,7 +16,7 @@ feature 'User can create answer', "
     end
 
     scenario 'answers the question' do
-      fill_in 'Your answer', with: 'Test question'
+      fill_in 'Answer', with: 'Test question'
 
       click_on 'Send answer'
 
@@ -27,7 +27,7 @@ feature 'User can create answer', "
     scenario 'answer question with errors' do
       click_on 'Send answer'
 
-      expect(page).to have_content 'Oooops something went wrong((('
+      expect(page).to have_content "Body can't be blank"
     end
   end
 
