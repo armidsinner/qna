@@ -39,8 +39,7 @@ class QuestionsController < ApplicationController
       flash[:notice] = 'Your question has been deleted'
       redirect_to questions_path
     else
-      flash[:notice] = 'You are not author to delete this question'
-      render @question
+      head :forbidden 
     end
   end
 

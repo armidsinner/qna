@@ -20,8 +20,7 @@ class AnswersController < ApplicationController
       flash[:notice] = 'Your answer has been deleted'
       redirect_to @answer.question
     else
-      flash[:notice] = 'You are not author to delete this answer'
-      render @answer.question
+      head :forbidden 
     end
   end
 

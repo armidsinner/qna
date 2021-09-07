@@ -14,7 +14,7 @@ p = link_to 'Return to all questions', questions_path
     .answer-errors
     = render "/answers/form"  
 
-- if current_user.present? && current_user.check_author?(@question)
+- if current_user&.check_author?(@question)
     p = link_to 'Delete question', question_path(@question),
                         method: :delete,
                         data: {confirm: 'Вы уверены?'}                         
