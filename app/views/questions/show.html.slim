@@ -1,0 +1,20 @@
+p = link_to 'Return to all questions', questions_path
+
+.question
+  h1.title = @question.title
+  p.body = @question.body
+  p.author = @question.user.email
+
+  h2 Answers
+  .answers
+  = render @question.answers
+
+  p Answer the question
+  .new-answer-form
+    .answer-errors
+    = render "/answers/form"  
+
+- if current_user&.check_author?(@question)
+    p = link_to 'Delete question', question_path(@question),
+                        method: :delete,
+                        data: {confirm: 'Вы уверены?'}                         
